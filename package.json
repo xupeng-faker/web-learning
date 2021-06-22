@@ -10,7 +10,7 @@
     "commitlint": "commitlint --config commitlint.config.js -e -V",
     "release": "standard-version",
     "lint": "npx eslint --ext .js",
-    "lint-fix": "npx eslint --fix --ext .js JavaScript"
+    "lint-fix": "npx eslint --fix --ext .js src"
   },
   "repository": {
     "type": "git",
