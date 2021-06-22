@@ -329,7 +329,7 @@ function throttle(fn, wait) {
 function throttle2(fn, wait) {
   let timeout = null
   return function () {
-    if (!timeout) {
+    if (!timeout)   {
       globalThis.setTimeout(() => {
         fn.apply(this, arguments)
         timeout = null
