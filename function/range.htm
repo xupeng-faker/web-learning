@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <body>
+        <div>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+        </div>
+    </body>
+    <script>
+        let elementDiv = document.getElementsByTagName('div')[0]
+        function sort (element) {
+            const range = new Range()
+
+            range.selectNodeContents(element)
+            const frag = range.extractContents()
+            let l = frag.childNodes.length
+            while (l--) {
+                frag.appendChild(frag.childNodes[l])
+            }
+            elementDiv.appendChild(frag)
+        }
+        sort(elementDiv)
+        
+    </script>
+</body>
+</html>
