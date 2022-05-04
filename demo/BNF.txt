@@ -1,0 +1,23 @@
+
+// 上下文无关文法 巴科斯范式 Backus Normal Form BNF 范式 <PrimaryExpression> 非终结符 "*" 终结符
+
+<Number> = '0' | '1' | .... '9'
+
+<DecimalNumber> = '0' | ({ '1' | .... '9' } <Number>*)
+
+<PrimaryExpression> = <DecimalNumber> | "(" <LogicalExpression> ")"
+
+<MultiplicativeExpression> = <ExponentiationExpression> |
+    <MultiplicativeExpression> "*" <ExponentiationExpression> |
+    <MultiplicativeExpression> "/" <ExponentiationExpression>
+
+<AdditiveExpression> = <MultiplicativeExpression> |
+    <AdditiveExpression> "+" <MultiplicativeExpression>
+    <AdditiveExpression> "-" <MultiplicativeExpression>
+
+<ExponentiationExpression> =
+  <PrimaryExpression> "**" <ExponentiationExpression>
+
+<LogicalExpression> = <AdditiveExpression> |
+    <LogicalExpression> "||" <AdditiveExpression> |
+    <LogicalExpression> "&&" <AdditiveExpression>

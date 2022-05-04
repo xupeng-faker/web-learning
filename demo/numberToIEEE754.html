@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE754 64位双精度浮点数</title>
+    <style>
+        input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        .container input[type='number']{
+            -moz-appearance: textfield;
+        }
+        input {
+            width:1em;
+            height:2em;
+            text-align:center;
+        }
+        .sign {
+            background-color: lightblue;
+        }
+        .exponent {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.min.js"></script>
+    <div id="app">
+        <span v-for="item, index of bits">
+            <input type="number" min="0" max="1" :class="index > 0 ? index > 11 ? 'fraction': 'exponent' : 'sign'" v-model="bits[index]">
+            <input type="text" v-if="index === 31">
+            <br v-if="index === 31" />
+        </span>
+        <br />
+        <input type="text" style="width: 5em;" v-model="value">
+    </div>
+    <script >
+        window.vm = new Vue({
+            el: '#app',
+            data: {
+                bits: new Array(65).fill(Number(0)),
+                value: 0
+            },
+            watch: {
+                value (val) {
+                    /**
+                     * 由于十进制转换二进制无法乘尽 
+                     * 数据类型	符号位	阶码	尾数	总位数	偏移值
+                                单精度	1	8	23	32	127
+                                双精度	1	11	52	64	1023
+                     */
+                    const bytes = new Uint8Array(8)
+                    const memory = new Float64Array(bytes.buffer)
+                    memory[0] = val
+                    for (let i =0; i < 8; i++) {
+                        let byte = bytes[i]
+                        console.log(byte)
+                        for (let j = 0; j < 8; j++) {
+                            this.bits[(8 - i) * 8 - j -1] = byte & 1
+                            byte = byte >> 1
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
